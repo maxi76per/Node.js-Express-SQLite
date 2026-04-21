@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4: SQL Injection Testing</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>User Search Portal</h1>
+            <p>Lab 4: SQL Injection Vulnerabilities & Protection</p>
+        </header>
+
+        <div class="controls">
+            <div class="toggle-container">
+                <span class="label" id="label-vulnerable">Vulnerable</span>
+                <label class="switch">
+                    <input type="checkbox" id="mode-toggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="label" id="label-secure">Secure</span>
+            </div>
+            <div class="mode-indicator" id="mode-indicator">
+                Current Mode: <span class="badge vulnerable-badge">Vulnerable (String Concatenation)</span>
+            </div>
+        </div>
+
+        <main>
+            <form id="search-form" class="search-form">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Enter username to search..." autocomplete="off">
+                    <button type="submit" id="search-btn">Search</button>
+                </div>
+                <div class="quick-payloads">
+                    <span>Try: </span>
+                    <button type="button" class="payload-btn" data-payload="admin">admin</button>
+                    <button type="button" class="payload-btn" data-payload="' OR 1=1 --">' OR 1=1 --</button>
+                    <button type="button" class="payload-btn" data-payload="' UNION SELECT id, username, password, is_admin FROM users --">UNION SELECT</button>
+                </div>
+            </form>
+
+            <div class="results-container">
+                <h2>Results <span id="result-count"></span></h2>
+                <div id="error-message" class="error-message hidden"></div>
+                <div class="table-wrapper">
+                    <table id="results-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Password (Hash/Plain)</th>
+                                <th>Is Admin</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body">
+                            <tr>
+                                <td colspan="4" class="empty-state">Enter a username to search.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
